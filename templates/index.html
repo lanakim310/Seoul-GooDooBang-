@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet">
 
 
-    <title>스파르타코딩클럽 | 맛집 검색</title>
+    <title>스파르타코딩클럽 | 구두 검색</title>
     <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=b4kwxh1tau&submodules=geocoder"></script>
 
@@ -68,12 +68,31 @@
         <h1>"</h1>
         <h1>서울 구두방 찾아 삼만리</h1>
         <div class="input-group mb-3">
-            <select class="form-control">
-                    <option>select 01</option>
-                    <option>select 02</option>
-                    <option>select 03</option>
-                    <option>select 04</option>
-                    <option>select 05</option>
+            <select class="form-control" id="guName">
+                    <option>강남구</option>
+                    <option>강동구</option>
+                    <option>강북구</option>
+                    <option>강서구</option>
+                    <option>관악구</option>
+                    <option>광진구</option>
+                    <option>구로구</option>
+                    <option>금천구</option>
+                    <option>노원구</option>
+                    <option>도봉구</option>
+                    <option>동대문구</option>
+                    <option>동작구</option>
+                    <option>마포구</option>
+                    <option>서대문구</option>
+                    <option>서초구</option>
+                    <option>성북구</option>
+                    <option>송파구</option>
+                    <option>양천구</option>
+                    <option>영등포구</option>
+                    <option>용산구</option>
+                    <option>은평구</option>
+                    <option>종로구</option>
+                    <option>중구</option>
+                    <option>중랑구</option>
                 </select>
             <div class="input-group-append">
                 <button type="button" class="btn-dark" onclick="find_my_best_place()">찾기 (서울만 지원) </button>
@@ -124,31 +143,35 @@
 
         function find_my_best_place() {
 
-            let guName = $('#gu-name').val();
+            let guName = $('#guName').val();
             if (guName === '') {
                 alert('구 이름을 입력하세요');
                 return;
             }
-            if (isValidGuName(guName) === false) {
-                alert('올바른 구 이름을 입력하세요');
-                return;
-            }
+            // if (isValidGuName(guName) === false) {
+            //     alert('올바른 구 이름을 입력하세요');
+            //     return;
+            // }
 
-            $('#matjip-box').empty();
+            // $('#matjip-box').empty();
+
             $.ajax({
                 type: "GET",
-                url: `/matjip/info?gu_give=${guName}`,
+                url: `/shoes?guName_give=${guName}`,
                 data: {},
                 success: function (response) {
-                    if (response['result'] === 'success') {
-                        let matjipList = response['matjip_list'];
-                        matjipList = getMatjipListWithGeoData(matjipList);
-                        console.log(matjipList);
-                        addHTML(matjipList);
-                        drawMap(matjipList);
-                    } else {
-                        alert('검색이 실패하였습니다.');
-                    }
+                    console.log(response['data']);
+
+
+                    // if (response['result'] === 'success') {
+                    //     let matjipList = response['matjip_list'];
+                    //     matjipList = getMatjipListWithGeoData(matjipList);
+                    //     console.log(matjipList);
+                    //     addHTML(matjipList);
+                    //     drawMap(matjipList);
+                    // } else {
+                    //     alert('검색이 실패하였습니다.');
+                    // }
                 }
             });
         }

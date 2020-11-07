@@ -27,7 +27,8 @@ def get_shoe_cleaner():
         doc = {
             'X_COORD': shoe['X_COORD'],
             'Y_COORD': shoe['Y_COORD'],
-            'address': shoe['WITH_PNU_NM'] + ' ' + shoe['WITH_ADDR2']
+            'gu_address': shoe['WITH_PNU_NM'],
+            'detail_address': shoe['WITH_ADDR2']
         }
 
         db.shoes_cleaner.insert_one(doc)
